@@ -6,39 +6,30 @@ cd "$(dirname "$0")/.."
 
 echo "🚀 Starting ShopSmart CI check..."
 
-# Function to run checks in a directory
-run_checks() {
-  local dir=$1
-  echo -e "\n📂 Checking $dir..."
-  if [ -d "$dir" ]; then
-    cd "$dir"
-    if [ -f "package.json" ]; then
-      echo "📦 Installing dependencies in $dir..."
-      npm install
-      
-      echo "🧹 Running lint in $dir..."
-      npm run lint || echo "⚠️  Lint check failed in $dir"
-      
-      echo "🧪 Running tests in $dir..."
-      npm test || echo "⚠️  Tests failed in $dir"
-      
-      if [[ "$dir" == "client" ]]; then
-        echo "🏗️  Building client..."
-        npm run build || echo "⚠️  Build failed in $dir"
-      fi
-    else
-      echo "❌ No package.json found in $dir"
-      return 1
-    fi
-    cd ..
-  else
-    echo "❌ Directory $dir not found"
-    return 1
-  fi
-}
+# Run server checks
+echo -e "\n📂 Checking server..."
+(
+    cd server
+    echo "📦 Installing server dependencies..."
+    npm ci
+    echo "🧪 Running tests..."
+    npm test
+    echo "🧹 Running lint..."
+    npm run lint
+)
 
-# Run checks for client and server
-run_checks "server"
-run_checks "client"
+# Run client checks
+echo -e "\n📂 Checking client..."
+(
+    cd client
+    echo "📦 Installing client dependencies..."
+    npm ci
+    echo "🧪 Running tests..."
+    npm test
+    echo "🧹 Running lint..."
+    npm run lint
+    echo "🏗️  Building client..."
+    npm run build
+)
 
 echo -e "\n✅ ShopSmart CI check completed successfully!"

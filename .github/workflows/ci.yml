@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  check-and-build:
     runs-on: ubuntu-latest
 
     strategy:
@@ -26,30 +26,27 @@ jobs:
           client/package-lock.json
           server/package-lock.json
 
-    - name: Install server dependencies
+    - name: Server - Install & Test
       working-directory: server
-      run: npm ci
+      run: |
+        npm ci
+        npm test
+        npm run lint
 
-    - name: Lint server
-      working-directory: server
-      run: npm run lint || echo "No server linter configured"
-
-    - name: Test server
-      working-directory: server
-      run: npm test
-
-    - name: Install client dependencies
+    - name: Client - Install & Test
       working-directory: client
-      run: npm ci
+      run: |
+        npm ci
+        npm test
+        npm run lint
 
-    - name: Lint client
-      working-directory: client
-      run: npm run lint
-
-    - name: Test client
-      working-directory: client
-      run: npm test
-
-    - name: Build client
+    - name: Client - Build
       working-directory: client
       run: npm run build
+
+    - name: Upload Build Artifacts
+      if: matrix.node-version == '20.x'
+      uses: actions/upload-artifact@v4
+      with:
+        name: shopsmart-frontend
+        path: client/dist
