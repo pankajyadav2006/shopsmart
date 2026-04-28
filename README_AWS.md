@@ -73,3 +73,7 @@ The pipeline is fully automated. Once AWS secrets are configured in GitHub, a si
    - `AWS_ACCESS_KEY_ID`
    - `AWS_SECRET_ACCESS_KEY`
    - `AWS_REGION` (e.g., `us-east-1`)
+
+
+---
+Last Deployed: Tue Apr 28 18:17:14 IST 2026
