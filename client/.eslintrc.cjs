@@ -13,6 +13,7 @@ module.exports = {
     it: true,
     expect: true,
     jest: true,
+    global: true,
   },
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
