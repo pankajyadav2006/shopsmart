@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Disable AWS CLI pager to prevent it from stopping mid-script
+export AWS_PAGER=""
+
 # Configuration
 REGION="us-east-1"
 CLUSTER_NAME="shopsmart-cluster"
@@ -34,4 +37,4 @@ aws ecs create-service \
   --network-configuration "$NET_CONFIG" \
   --region "$REGION" || echo "Service already exists"
 
-echo "Infrastructure setup completed successfully."
+echo "Infrastructure setup completed successfully!"
