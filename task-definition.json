@@ -4,7 +4,7 @@
   "containerDefinitions": [
     {
       "name": "server",
-      "image": "<AWS_ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/shopsmart-server:latest",
+      "image": "035463250003.dkr.ecr.us-east-1.amazonaws.com/shopsmart-server:latest",
       "cpu": 256,
       "memory": 512,
       "essential": true,
@@ -19,14 +19,14 @@
         "logDriver": "awslogs",
         "options": {
           "awslogs-group": "/ecs/shopsmart",
-          "awslogs-region": "<REGION>",
+          "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "server"
         }
       }
     },
     {
       "name": "client",
-      "image": "<AWS_ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/shopsmart-client:latest",
+      "image": "035463250003.dkr.ecr.us-east-1.amazonaws.com/shopsmart-client:latest",
       "cpu": 256,
       "memory": 512,
       "essential": true,
@@ -41,7 +41,7 @@
         "logDriver": "awslogs",
         "options": {
           "awslogs-group": "/ecs/shopsmart",
-          "awslogs-region": "<REGION>",
+          "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "client"
         }
       }
@@ -52,6 +52,6 @@
   ],
   "cpu": "512",
   "memory": "1024",
-  "executionRoleArn": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/ecsTaskExecutionRole",
-  "taskRoleArn": "arn:aws:iam::<AWS_ACCOUNT_ID>:role/ecsTaskExecutionRole"
+  "executionRoleArn": "arn:aws:iam::035463250003:role/LabRole",
+  "taskRoleArn": "arn:aws:iam::035463250003:role/LabRole"
 }
